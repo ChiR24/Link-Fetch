@@ -1,0 +1,15 @@
+# Ignore node modules
+node_modules/
+
+# Ignore backup files
+*.bak
+
+# Ignore package zip files
+*.zip
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env 

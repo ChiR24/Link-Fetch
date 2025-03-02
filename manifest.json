@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Link Fetch",
+  "version": "1.0",
+  "description": "Fetch, organize and manage links from web pages with a modern interface",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "sidePanel"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Link Fetch - Extract and manage links",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Open Link Fetch popup"
+    },
+    "toggle_side_panel": {
+      "suggested_key": {
+        "default": "Alt+Shift+L",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Toggle Link Fetch side panel"
+    }
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "author": "Link Fetch Developer"
+} 

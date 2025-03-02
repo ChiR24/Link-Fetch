@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link Fetch - Side Panel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Side panel specific styles */
+    body {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+    .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+    }
+    
+    .links-container {
+      flex: 1;
+      overflow-y: auto;
+      max-height: none;
+    }
+    
+    .footer {
+      padding: 8px 0;
+      margin-top: 8px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    /* Additional responsiveness for side panel */
+    @media (max-width: 350px) {
+      .controls {
+        flex-direction: column;
+      }
+      
+      .controls button {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+      
+      .filters {
+        flex-direction: column;
+      }
+      
+      #filterInput, #sortOption {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icons/icon32.png" alt="Link Fetch Logo" class="logo">
+      <h1>Link Fetch</h1>
+      <button id="themeToggle" class="theme-toggle" title="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+    
+    <div class="controls">
+      <button id="fetchLinks">
+        <i class="fas fa-download"></i> Fetch Links
+      </button>
+      <button id="copyLinks">
+        <i class="fas fa-copy"></i> Copy All
+      </button>
+      <button id="clearLinks">
+        <i class="fas fa-trash"></i> Clear
+      </button>
+    </div>
+    
+    <div class="filters">
+      <input type="text" id="filterInput" placeholder="Filter links..." aria-label="Filter links">
+      <select id="sortOption" aria-label="Sort options">
+        <option value="default">Default</option>
+        <option value="alphabetical">A-Z</option>
+        <option value="domain">By Domain</option>
+        <option value="date">Newest</option>
+      </select>
+    </div>
+    
+    <div id="statsBar" class="stats-bar">
+      <span id="linkCount">0 links</span>
+      <span id="domainCount">0 domains</span>
+    </div>
+    
+    <div class="links-container">
+      <ul id="linksList"></ul>
+    </div>
+    
+    <div class="status" id="status"></div>
+    
+    <footer class="footer">
+      <div class="keyboard-shortcuts">
+        <span title="Focus filter"><kbd>Ctrl</kbd>+<kbd>F</kbd>: Filter</span>
+        <span title="Clear filter"><kbd>Esc</kbd>: Clear</span>
+      </div>
+    </footer>
+  </div>
+  <script src="sidepanel.js"></script>
+</body>
+</html> 

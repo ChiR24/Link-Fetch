@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link Fetch</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="icons/icon32.png" alt="Link Fetch Logo" class="logo">
+      <h1>Link Fetch</h1>
+      <div class="header-actions">
+        <button id="openSidePanel" class="icon-button" title="Open side panel">
+          <i class="fas fa-columns"></i>
+        </button>
+        <button id="themeToggle" class="theme-toggle" title="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button id="fetchLinks">
+        <i class="fas fa-download"></i> Fetch Links
+      </button>
+      <button id="copyLinks">
+        <i class="fas fa-copy"></i> Copy All
+      </button>
+      <button id="clearLinks">
+        <i class="fas fa-trash"></i> Clear
+      </button>
+    </div>
+    
+    <div class="filters">
+      <input type="text" id="filterInput" placeholder="Filter links..." aria-label="Filter links">
+      <select id="sortOption" aria-label="Sort options">
+        <option value="default">Default</option>
+        <option value="alphabetical">A-Z</option>
+        <option value="domain">By Domain</option>
+        <option value="date">Newest</option>
+      </select>
+    </div>
+    
+    <div id="statsBar" class="stats-bar" style="display: flex;">
+      <span id="linkCount">5 links</span>
+      <span id="domainCount">3 domains</span>
+    </div>
+    
+    <div class="links-container">
+      <ul id="linksList">
+        <!-- This section is only for screenshot purposes -->
+        <div class="domain-group">
+          <img src="https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=16" alt="" class="favicon"> 
+          developer.mozilla.org 
+          <span class="badge">2</span>
+        </div>
+        <li>
+          <div class="link-item">
+            <img src="https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=16" alt="" class="favicon">
+            developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+          </div>
+          <div class="link-actions">
+            <button title="Copy link"><i class="fas fa-copy"></i></button>
+            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
+            <button title="Remove link"><i class="fas fa-times"></i></button>
+          </div>
+        </li>
+        <li>
+          <div class="link-item">
+            <img src="https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=16" alt="" class="favicon">
+            developer.mozilla.org/en-US/docs/Web/API
+          </div>
+          <div class="link-actions">
+            <button title="Copy link"><i class="fas fa-copy"></i></button>
+            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
+            <button title="Remove link"><i class="fas fa-times"></i></button>
+          </div>
+        </li>
+        
+        <div class="domain-group">
+          <img src="https://www.google.com/s2/favicons?domain=github.com&sz=16" alt="" class="favicon"> 
+          github.com 
+          <span class="badge">2</span>
+        </div>
+        <li>
+          <div class="link-item">
+            <img src="https://www.google.com/s2/favicons?domain=github.com&sz=16" alt="" class="favicon">
+            github.com/topics/chrome-extension
+          </div>
+          <div class="link-actions">
+            <button title="Copy link"><i class="fas fa-copy"></i></button>
+            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
+            <button title="Remove link"><i class="fas fa-times"></i></button>
+          </div>
+        </li>
+        <li>
+          <div class="link-item">
+            <img src="https://www.google.com/s2/favicons?domain=github.com&sz=16" alt="" class="favicon">
+            github.com/GoogleChrome/chrome-extensions-samples
+          </div>
+          <div class="link-actions">
+            <button title="Copy link"><i class="fas fa-copy"></i></button>
+            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
+            <button title="Remove link"><i class="fas fa-times"></i></button>
+          </div>
+        </li>
+        
+        <div class="domain-group">
+          <img src="https://www.google.com/s2/favicons?domain=developer.chrome.com&sz=16" alt="" class="favicon"> 
+          developer.chrome.com 
+          <span class="badge">1</span>
+        </div>
+        <li>
+          <div class="link-item">
+            <img src="https://www.google.com/s2/favicons?domain=developer.chrome.com&sz=16" alt="" class="favicon">
+            developer.chrome.com/docs/extensions/mv3/user_interface/
+          </div>
+          <div class="link-actions">
+            <button title="Copy link"><i class="fas fa-copy"></i></button>
+            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
+            <button title="Remove link"><i class="fas fa-times"></i></button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="status" id="status"></div>
+    
+    <footer class="footer">
+      <div class="keyboard-shortcuts">
+        <span title="Focus filter"><kbd>Ctrl</kbd>+<kbd>F</kbd>: Filter</span>
+        <span title="Clear filter"><kbd>Esc</kbd>: Clear</span>
+      </div>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html> 
