@@ -5,6 +5,7 @@
 $extensionName = "Link-Fetch"
 $version = (Get-Content -Raw -Path manifest.json | ConvertFrom-Json).version
 $outputFileName = "${extensionName}-v${version}.zip"
+$releaseFileName = "${extensionName}-Release-v${version}.zip"
 
 # Ensure we're in the correct directory
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -17,8 +18,6 @@ $filesToInclude = @(
     "content.js",
     "popup.html",
     "popup.js",
-    "sidepanel.html",
-    "sidepanel.js",
     "styles.css",
     "README.md",
     "icons/*"
@@ -63,7 +62,7 @@ foreach ($excludePattern in $filesToExclude) {
     Get-ChildItem -Path $tempDir -Recurse -Include $excludePattern | Remove-Item -Force -Recurse
 }
 
-# Create zip file
+# Create regular zip file
 if (Test-Path $outputFileName) {
     Remove-Item $outputFileName -Force
 }
@@ -71,8 +70,17 @@ if (Test-Path $outputFileName) {
 Add-Type -Assembly System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::CreateFromDirectory($tempDir, "$scriptPath\$outputFileName")
 
+# Create release zip file
+if (Test-Path $releaseFileName) {
+    Remove-Item $releaseFileName -Force
+}
+
+Copy-Item "$scriptPath\$outputFileName" "$scriptPath\$releaseFileName"
+
 # Cleanup
 Remove-Item -Path $tempDir -Recurse -Force
 
-Write-Host "Package created: $outputFileName" -ForegroundColor Green
+Write-Host "Packages created:" -ForegroundColor Green
+Write-Host "- $outputFileName" -ForegroundColor Green
+Write-Host "- $releaseFileName" -ForegroundColor Green
 Write-Host "Ready for submission to Chrome Web Store." 

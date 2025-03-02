@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Link Fetch",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Fetch, organize and manage links from web pages with a modern interface",
   "permissions": [
     "activeTab",
@@ -9,8 +9,7 @@
     "scripting",
     "contextMenus",
     "tabs",
-    "notifications",
-    "sidePanel"
+    "notifications"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -44,17 +43,7 @@
         "mac": "Command+Shift+L"
       },
       "description": "Open Link Fetch popup"
-    },
-    "toggle_side_panel": {
-      "suggested_key": {
-        "default": "Alt+Shift+L",
-        "mac": "Command+Shift+K"
-      },
-      "description": "Toggle Link Fetch side panel"
     }
-  },
-  "side_panel": {
-    "default_path": "sidepanel.html"
   },
   "author": "Link Fetch Developer"
 } 

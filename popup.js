@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const linkCountElement = document.getElementById('linkCount');
   const domainCountElement = document.getElementById('domainCount');
   const themeToggle = document.getElementById('themeToggle');
-  const openSidePanelButton = document.getElementById('openSidePanel');
 
   // Store links
   let links = [];
@@ -58,12 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
   });
   
-  // Open side panel button handler
-  openSidePanelButton.addEventListener('click', function() {
-    chrome.runtime.sendMessage({ action: "openSidePanel" });
-    window.close(); // Close the popup since we're opening the side panel
-  });
-
   // Load saved links
   chrome.storage.local.get(['links'], function(result) {
     if (result.links && result.links.length > 0) {

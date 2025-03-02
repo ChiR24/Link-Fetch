@@ -4,9 +4,9 @@
 
 ![Link Fetch Logo](icons/icon128.png)
 
-[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/ChiR24/Link-Fetch/releases/tag/v1.0)
+[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](https://github.com/ChiR24/Link-Fetch/releases/tag/v1.1)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v1.0-orange.svg)](https://github.com/ChiR24/Link-Fetch/releases/tag/v1.0)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v1.1-orange.svg)](https://github.com/ChiR24/Link-Fetch/releases/tag/v1.1)
 
 **Link Fetch is a powerful Chrome extension that helps you collect, organize, and validate links from any webpage with just a click.**
 
@@ -67,11 +67,11 @@
       </ul>
     </td>
     <td width="50%">
-      <h3>🔍 Side Panel Integration</h3>
+      <h3>🔍 Context Menu Integration</h3>
       <ul>
-        <li>Access your links from the Chrome side panel</li>
-        <li>Work with your links without leaving your current tab</li>
-        <li>Convenient access via keyboard shortcuts</li>
+        <li>Right-click on any link to add it directly to Link Fetch</li>
+        <li>Extract all links from a page via the context menu</li>
+        <li>Extract links from selected text on a webpage</li>
       </ul>
     </td>
   </tr>
@@ -100,7 +100,6 @@ Configure keyboard shortcuts to make Link Fetch even more convenient:
 2. Find "Link Fetch" in the list
 3. Set shortcuts for:
    - Opening the popup
-   - Toggling the side panel
    - Fetching links from the current page
 
 </details>
@@ -111,7 +110,7 @@ Configure keyboard shortcuts to make Link Fetch even more convenient:
 <summary><b>Collecting Links</b></summary>
 
 * **Fetch All Links**: Click the extension icon, then click "Fetch Links" to collect all links from the current page
-* **Side Panel**: Use the side panel for persistent access to your links while browsing
+* **Context Menu**: Right-click on a link to add it, or right-click anywhere on a page to extract all links
 * **Filter Links**: Type in the search box to filter links by URL or domain
 
 </details>
@@ -148,8 +147,6 @@ Link-Fetch/
 ├── manifest.json       # Extension manifest
 ├── popup.html          # Popup interface HTML
 ├── popup.js            # Popup functionality
-├── sidepanel.html      # Side panel interface HTML
-├── sidepanel.js        # Side panel functionality
 └── styles.css          # Shared styles for the extension
 ```
 

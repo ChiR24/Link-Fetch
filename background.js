@@ -23,32 +23,14 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ["selection"]
   });
   
-  // Create context menu for opening side panel
-  chrome.contextMenus.create({
-    id: "openSidePanel",
-    title: "Open Link Fetch in Side Panel",
-    contexts: ["page"]
-  });
-  
   // Show the number of stored links in the badge
   updateBadge();
   
   // Set up command listeners for keyboard shortcuts
   chrome.commands.onCommand.addListener((command) => {
-    if (command === "toggle_side_panel") {
-      toggleSidePanel();
-    }
+    // Remove side panel keyboard shortcut handler
   });
 });
-
-// Function to toggle the side panel
-function toggleSidePanel() {
-  chrome.sidePanel.open({ windowId: chrome.windows.WINDOW_ID_CURRENT });
-  chrome.sidePanel.setOptions({
-    path: 'sidepanel.html',
-    enabled: true
-  });
-}
 
 // Handle context menu clicks
 chrome.contextMenus.onClicked.addListener((info, tab) => {
@@ -113,10 +95,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       }
     });
   }
-  else if (info.menuItemId === "openSidePanel") {
-    // Open the side panel
-    toggleSidePanel();
-  }
+  // Remove side panel context menu handler
 });
 
 // Function to add a single link
@@ -226,10 +205,7 @@ chrome.runtime.onMessage.addListener(
       updateBadge();
       sendResponse({ success: true });
     }
-    else if (request.action === "openSidePanel") {
-      toggleSidePanel();
-      sendResponse({ success: true });
-    }
+    // Remove openSidePanel message handler
     else if (request.action === "checkLinks") {
       // Check if the links are valid/broken
       if (request.links && request.links.length > 0) {
