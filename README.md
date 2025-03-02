@@ -13,7 +13,6 @@
 [✨ Features](#features) • 
 [🚀 Installation](#installation) • 
 [📖 Usage](#usage) • 
-[🎨 Screenshots](#screenshots) • 
 [🛠️ Development](#development) • 
 [📜 License](#license)
 
@@ -136,16 +135,6 @@ Configure keyboard shortcuts to make Link Fetch even more convenient:
 
 </details>
 
-## 🎨 Screenshots
-
-<div align="center">
-  <img src="screenshots/popup.png" alt="Popup Screenshot" width="400px">
-  <p><i>Main popup interface with collected links</i></p>
-  
-  <img src="screenshots/sidepanel.png" alt="Side panel Screenshot" width="400px">
-  <p><i>Side panel interface for persistent access</i></p>
-</div>
-
 ## 🛠️ Development
 
 Link Fetch is built with vanilla JavaScript, HTML, and CSS, making it lightweight and fast.
@@ -191,4 +180,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   </a>
   
   <p>Made with ❤️ by <a href="https://github.com/ChiR24">ChiR24</a></p>
+  
+  <p><a href="https://github.com/ChiR24/Link-Fetch/tree/main/screenshots">View screenshots on GitHub</a></p>
 </div> 
