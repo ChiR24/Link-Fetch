@@ -12,4 +12,7 @@ node_modules/
 Thumbs.db
 
 # Ignore environment files
-.env 
+.env
+
+# Ignore screenshots directory
+screenshots/ 

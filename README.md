@@ -143,7 +143,6 @@ Link Fetch is built with vanilla JavaScript, HTML, and CSS, making it lightweigh
 ```
 Link-Fetch/
 ├── icons/              # Extension icons
-├── screenshots/        # Screenshots for documentation
 ├── background.js       # Background script for the extension
 ├── content.js          # Content script injected into pages
 ├── manifest.json       # Extension manifest
@@ -180,6 +179,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   </a>
   
   <p>Made with ❤️ by <a href="https://github.com/ChiR24">ChiR24</a></p>
-  
-  <p><a href="https://github.com/ChiR24/Link-Fetch/tree/main/screenshots">View screenshots on GitHub</a></p>
 </div> 
