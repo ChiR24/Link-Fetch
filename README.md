@@ -1,77 +1,194 @@
-# Link Fetch
+# 🔍 Link Fetch 
 
-A Chrome extension for fetching, organizing, and managing links from web pages with a modern, accessible interface.
+<div align="center">
 
-![Link Fetch Screenshot - Light Mode](screenshots/light-mode.png)
-![Link Fetch Screenshot - Dark Mode](screenshots/dark-mode.png)
+![Link Fetch Logo](icons/icon128.png)
 
-## Features
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/ChiR24/Link-Fetch/releases/tag/v1.0)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-v1.0-orange.svg)](https://github.com/ChiR24/Link-Fetch/releases/tag/v1.0)
 
-- Fetch all links from the current page with a single click
-- Extract links from selected text
-- Save links for later reference across browser sessions
-- Group links by domain for better organization
-- Filter links to quickly find what you need
-- Sort links by domain, URL, or date added
-- Copy links to clipboard with one click
-- Open links in new tabs
-- Remove individual links or clear all at once
-- Check for broken links with visual indicators
-- Side panel support for easier access while browsing
-- Context menu for quick access to extension features
-- Dark mode support to reduce eye strain
-- Keyboard shortcuts for faster navigation
-- Accessibility features for all users
+**Link Fetch is a powerful Chrome extension that helps you collect, organize, and validate links from any webpage with just a click.**
 
-## Accessibility Features
+[✨ Features](#features) • 
+[🚀 Installation](#installation) • 
+[📖 Usage](#usage) • 
+[🎨 Screenshots](#screenshots) • 
+[🛠️ Development](#development) • 
+[📜 License](#license)
 
-Link Fetch is designed to be accessible to all users, including those who rely on assistive technologies:
+</div>
 
-- Keyboard navigation and shortcuts:
-  - `Ctrl+F` to focus on the filter input
-  - `Esc` to clear the filter
-  - `Alt+L` to open the popup (customizable in Chrome extension settings)
-  - `Alt+Shift+L` to toggle the side panel
-- Screen reader support with proper ARIA attributes
-- High contrast focus states for better visibility
-- Improved color contrast ratios that meet WCAG guidelines
-- Fully responsive layout that adapts to different screen sizes
+## ✨ Features
 
-## Dark Mode
+<table>
+  <tr>
+    <td width="50%">
+      <h3>🔎 Effortless Link Collection</h3>
+      <ul>
+        <li>Extract all links from any webpage with one click</li>
+        <li>Smart duplicate detection ensures each link is saved only once</li>
+        <li>Easily filter and search through collected links</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>🔄 Advanced Organization</h3>
+      <ul>
+        <li>Sort links by domain, alphabetical order, or date added</li>
+        <li>Group links by domain for better organization</li>
+        <li>Filter links using the search function</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>✅ Link Validation</h3>
+      <ul>
+        <li>Check for broken links with the validation tool</li>
+        <li>Visual indicators highlight broken links</li>
+        <li>Instantly see which links are working or broken</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>🌙 Dark Mode Support</h3>
+      <ul>
+        <li>Toggle between light and dark themes</li>
+        <li>Automatically remembers your preference</li>
+        <li>Reduces eye strain during nighttime use</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>📋 Easy Copying & Sharing</h3>
+      <ul>
+        <li>Copy individual links with a single click</li>
+        <li>Copy all or filtered links at once</li>
+        <li>Open links in new tabs directly from the extension</li>
+      </ul>
+    </td>
+    <td width="50%">
+      <h3>🔍 Side Panel Integration</h3>
+      <ul>
+        <li>Access your links from the Chrome side panel</li>
+        <li>Work with your links without leaving your current tab</li>
+        <li>Convenient access via keyboard shortcuts</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
-Link Fetch includes a built-in dark mode to reduce eye strain and save battery life. Users can toggle between light and dark themes by clicking the theme toggle button in the top-right corner of the popup.
+## 🚀 Installation
 
-## Side Panel
+### From Chrome Web Store (Coming Soon)
+1. Visit the [Chrome Web Store page](#) for Link Fetch
+2. Click the "Add to Chrome" button
+3. Confirm the installation when prompted
 
-The extension supports Chrome's side panel feature, allowing you to access your links without leaving the current tab. This is particularly useful when you need to reference multiple links while staying on the same page.
+### Manual Installation
+1. Download the latest release from the [Releases page](https://github.com/ChiR24/Link-Fetch/releases)
+2. Unzip the downloaded file
+3. Open Chrome and navigate to `chrome://extensions/`
+4. Enable "Developer mode" using the toggle in the top-right corner
+5. Click "Load unpacked" and select the unzipped folder
+6. Link Fetch is now installed and ready to use!
 
-## Broken Link Detection
+<details>
+<summary><b>⌨️ Keyboard Shortcuts</b></summary>
 
-Link Fetch can check your saved links to identify any that are broken or no longer accessible. Broken links are visually marked, making it easy to identify and remove outdated resources.
+Configure keyboard shortcuts to make Link Fetch even more convenient:
+1. Go to `chrome://extensions/shortcuts`
+2. Find "Link Fetch" in the list
+3. Set shortcuts for:
+   - Opening the popup
+   - Toggling the side panel
+   - Fetching links from the current page
 
-## Installation
+</details>
 
-1. Download or clone this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" in the top right
-4. Click "Load unpacked" and select the directory containing this extension
-5. The Link Fetch extension icon will appear in your browser toolbar
+## 📖 Usage
 
-## Usage
+<details open>
+<summary><b>Collecting Links</b></summary>
 
-- Click the Link Fetch icon in your browser toolbar to open the popup
-- Click "Fetch Links" to extract all links from the current page
-- Use the filter to search for specific links
-- Click the copy icon to copy a link to your clipboard
-- Click the open icon to open a link in a new tab
-- Click the delete icon to remove a link from your list
-- Use "Check Links" to validate all saved links
-- Click the side panel icon to open Link Fetch in a side panel
+* **Fetch All Links**: Click the extension icon, then click "Fetch Links" to collect all links from the current page
+* **Side Panel**: Use the side panel for persistent access to your links while browsing
+* **Filter Links**: Type in the search box to filter links by URL or domain
 
-## Privacy
+</details>
 
-Link Fetch operates entirely on your local machine. No data is sent to external servers except when checking if links are broken, which only involves standard HTTP requests to the linked resources.
+<details>
+<summary><b>Managing Links</b></summary>
 
-## License
+* **Sort Links**: Change the sorting order using the dropdown menu
+* **Delete Links**: Remove individual links using the delete button
+* **Clear All**: Use the "Clear" button to remove all saved links
+* **Copy Links**: Copy individual links by clicking on them, or use "Copy All" to copy all links
 
-MIT License 
+</details>
+
+<details>
+<summary><b>Validating Links</b></summary>
+
+* Click the "Check Links" button to validate if links are still active
+* Broken links will be highlighted with a warning indicator
+* The validation process runs in the background without interrupting your browsing
+
+</details>
+
+## 🎨 Screenshots
+
+<div align="center">
+  <img src="screenshots/popup.png" alt="Popup Screenshot" width="400px">
+  <p><i>Main popup interface with collected links</i></p>
+  
+  <img src="screenshots/sidepanel.png" alt="Side panel Screenshot" width="400px">
+  <p><i>Side panel interface for persistent access</i></p>
+</div>
+
+## 🛠️ Development
+
+Link Fetch is built with vanilla JavaScript, HTML, and CSS, making it lightweight and fast.
+
+### Project Structure
+```
+Link-Fetch/
+├── icons/              # Extension icons
+├── screenshots/        # Screenshots for documentation
+├── background.js       # Background script for the extension
+├── content.js          # Content script injected into pages
+├── manifest.json       # Extension manifest
+├── popup.html          # Popup interface HTML
+├── popup.js            # Popup functionality
+├── sidepanel.html      # Side panel interface HTML
+├── sidepanel.js        # Side panel functionality
+└── styles.css          # Shared styles for the extension
+```
+
+### Building from Source
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ChiR24/Link-Fetch.git
+   ```
+2. Make your modifications
+3. Load the unpacked extension in Chrome for testing
+4. Run the packaging script to create a distributable ZIP:
+   ```bash
+   powershell -ExecutionPolicy Bypass -File .\package.ps1
+   ```
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p>Did you find Link Fetch useful? Consider giving it a ⭐ on GitHub!</p>
+  
+  <a href="https://github.com/ChiR24/Link-Fetch">
+    <img src="https://img.shields.io/github/stars/ChiR24/Link-Fetch?style=social" alt="GitHub stars">
+  </a>
+  
+  <p>Made with ❤️ by <a href="https://github.com/ChiR24">ChiR24</a></p>
+</div> 
