@@ -47,84 +47,10 @@
     </div>
     
     <div class="links-container">
-      <ul id="linksList">
-        <!-- This section is only for screenshot purposes -->
-        <div class="domain-group">
-          <img src="https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=16" alt="" class="favicon"> 
-          developer.mozilla.org 
-          <span class="badge">2</span>
-        </div>
-        <li>
-          <div class="link-item">
-            <img src="https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=16" alt="" class="favicon">
-            developer.mozilla.org/en-US/docs/Web/API/Fetch_API
-          </div>
-          <div class="link-actions">
-            <button title="Copy link"><i class="fas fa-copy"></i></button>
-            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
-            <button title="Remove link"><i class="fas fa-times"></i></button>
-          </div>
-        </li>
-        <li>
-          <div class="link-item">
-            <img src="https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=16" alt="" class="favicon">
-            developer.mozilla.org/en-US/docs/Web/API
-          </div>
-          <div class="link-actions">
-            <button title="Copy link"><i class="fas fa-copy"></i></button>
-            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
-            <button title="Remove link"><i class="fas fa-times"></i></button>
-          </div>
-        </li>
-        
-        <div class="domain-group">
-          <img src="https://www.google.com/s2/favicons?domain=github.com&sz=16" alt="" class="favicon"> 
-          github.com 
-          <span class="badge">2</span>
-        </div>
-        <li>
-          <div class="link-item">
-            <img src="https://www.google.com/s2/favicons?domain=github.com&sz=16" alt="" class="favicon">
-            github.com/topics/chrome-extension
-          </div>
-          <div class="link-actions">
-            <button title="Copy link"><i class="fas fa-copy"></i></button>
-            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
-            <button title="Remove link"><i class="fas fa-times"></i></button>
-          </div>
-        </li>
-        <li>
-          <div class="link-item">
-            <img src="https://www.google.com/s2/favicons?domain=github.com&sz=16" alt="" class="favicon">
-            github.com/GoogleChrome/chrome-extensions-samples
-          </div>
-          <div class="link-actions">
-            <button title="Copy link"><i class="fas fa-copy"></i></button>
-            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
-            <button title="Remove link"><i class="fas fa-times"></i></button>
-          </div>
-        </li>
-        
-        <div class="domain-group">
-          <img src="https://www.google.com/s2/favicons?domain=developer.chrome.com&sz=16" alt="" class="favicon"> 
-          developer.chrome.com 
-          <span class="badge">1</span>
-        </div>
-        <li>
-          <div class="link-item">
-            <img src="https://www.google.com/s2/favicons?domain=developer.chrome.com&sz=16" alt="" class="favicon">
-            developer.chrome.com/docs/extensions/mv3/user_interface/
-          </div>
-          <div class="link-actions">
-            <button title="Copy link"><i class="fas fa-copy"></i></button>
-            <button title="Open link in new tab"><i class="fas fa-external-link-alt"></i></button>
-            <button title="Remove link"><i class="fas fa-times"></i></button>
-          </div>
-        </li>
-      </ul>
+      <ul id="linksList" role="list"></ul>
     </div>
     
-    <div class="status" id="status"></div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
     
     <footer class="footer">
       <div class="keyboard-shortcuts">

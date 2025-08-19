@@ -6,18 +6,18 @@
   --danger-hover: #c5221f;
   --success-color: #188038; /* Darkened for better contrast */
   --success-hover: #0d652d;
-  
+
   /* Background and surfaces */
   --background-color: #f8f9fa;
   --card-background: #ffffff;
   --surface-secondary: #f1f3f4;
   --surface-tertiary: #e8eaed;
-  
+
   /* Typography */
   --text-color: #202124;
   --text-secondary: #5f6368;
   --text-tertiary: #80868b;
-  
+
   /* UI elements */
   --border-color: #dadce0;
   --border-radius-sm: 4px;
@@ -27,41 +27,41 @@
   --focus-shadow: rgba(26, 115, 232, 0.25);
   --focus-shadow-strong: rgba(26, 115, 232, 0.4);
   --button-text: #ffffff;
-  
+
   /* Action buttons */
   --action-button-bg: #f1f3f4;
   --action-button-color: #5f6368;
   --action-button-hover: #e8eaed;
   --action-button-hover-color: #202124;
-  
+
   /* Domain grouping */
   --domain-background: #e8f0fe;
   --domain-color: #1a73e8;
   --badge-background: #e8f0fe;
-  
+
   /* Scrollbars and shadows */
   --scrollbar-track: #f1f1f1;
   --scrollbar-thumb: #dadce0;
   --scrollbar-thumb-hover: #bdc1c6;
   --shadow-color: rgba(0, 0, 0, 0.08);
   --shadow-color-stronger: rgba(0, 0, 0, 0.12);
-  
+
   /* Spacing */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
-  
+
   /* Animation */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s ease;
   --transition-slow: 0.35s ease;
-  
+
   /* Add color variables with RGB values for advanced effects */
   --primary-color-rgb: 25, 103, 210;
   --danger-color-rgb: 217, 48, 37;
   --success-color-rgb: 24, 128, 56;
-  
+
   /* Shadows and elevation system */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -78,48 +78,48 @@
   --danger-hover: #f6aea9;
   --success-color: #81c995;
   --success-hover: #a8dab5;
-  
+
   /* Background and surfaces */
   --background-color: #202124;
   --card-background: #292a2d;
   --surface-secondary: #35363a;
   --surface-tertiary: #3c4043;
-  
+
   /* Typography */
   --text-color: #e8eaed;
   --text-secondary: #9aa0a6;
   --text-tertiary: #80868b;
-  
+
   /* UI elements */
   --border-color: #5f6368;
   --hover-color: #35363a;
   --focus-shadow: rgba(138, 180, 248, 0.3);
   --focus-shadow-strong: rgba(138, 180, 248, 0.5);
   --button-text: #202124;
-  
+
   /* Action buttons */
   --action-button-bg: #3c4043;
   --action-button-color: #e8eaed;
   --action-button-hover: #5f6368;
   --action-button-hover-color: #ffffff;
-  
+
   /* Domain grouping */
   --domain-background: #3c4043;
   --domain-color: #8ab4f8;
   --badge-background: #3c4043;
-  
+
   /* Scrollbars and shadows */
   --scrollbar-track: #202124;
   --scrollbar-thumb: #5f6368;
   --scrollbar-thumb-hover: #9aa0a6;
   --shadow-color: rgba(0, 0, 0, 0.25);
   --shadow-color-stronger: rgba(0, 0, 0, 0.4);
-  
+
   /* Add color variables with RGB values for dark mode */
   --primary-color-rgb: 138, 180, 248;
   --danger-color-rgb: 242, 139, 130;
   --success-color-rgb: 129, 201, 149;
-  
+
   /* Enhanced shadows for dark mode */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -286,10 +286,10 @@ button:focus:not(:active)::after {
 
 /* Animation for theme toggle */
 .pulse-animation {
-  animation: pulse 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: ui-pulse 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes pulse {
+@keyframes ui-pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.2); }
   100% { transform: scale(1); }
@@ -369,6 +369,12 @@ button.success-button:hover {
   background-color: var(--success-hover);
 }
 
+/* Add a little gap below the Check Links button */
+#checkLinks {
+  margin-bottom: 10px;
+}
+
+
 .filters {
   display: flex;
   margin-bottom: var(--space-md);
@@ -407,38 +413,24 @@ input:hover, select:hover {
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--border-color);
   padding: var(--space-md);
-  margin-bottom: var(--space-md);
+  margin-bottom: 10px; /* match Check Links gap */
   box-shadow: var(--shadow-sm);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
+  /* Hide inner scrollbar while keeping scroll functionality */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+.links-container::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .links-container:hover {
   box-shadow: var(--shadow-md);
 }
 
-/* Enhanced custom scrollbar with more polish */
-.links-container::-webkit-scrollbar {
-  width: 8px;
-}
 
-.links-container::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-  border-radius: 4px;
-}
-
-.links-container::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 4px;
-  border: 2px solid var(--scrollbar-track);
-  background-clip: padding-box;
-}
-
-.links-container::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover);
-  border: 2px solid var(--scrollbar-track);
-  background-clip: padding-box;
-}
 
 ul {
   list-style-type: none;
@@ -537,10 +529,10 @@ li:hover .favicon {
   color: var(--danger-color);
   margin-right: var(--space-sm);
   font-size: 14px;
-  animation: pulse 2s infinite;
+  animation: warn-pulse 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes warn-pulse {
   0% { opacity: 0.6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.2); }
   100% { opacity: 0.6; transform: scale(1); }
@@ -774,21 +766,7 @@ kbd:hover {
   }
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
-.pulse-animation {
-  animation: pulse 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 li {
   animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -851,7 +829,7 @@ a:focus, button:focus, input:focus, select:focus {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .pulse-animation, .broken-link-icon, .empty-message {
     animation: none !important;
   }
@@ -884,23 +862,23 @@ a:focus, button:focus, input:focus, select:focus {
   body {
     width: 100%;
   }
-  
+
   .link-item {
     max-width: 220px;
   }
-  
+
   .controls {
     flex-direction: row;
     flex-wrap: wrap;
     gap: var(--space-xs);
   }
-  
+
   .controls button {
     flex: 1 1 calc(50% - var(--space-xs));
     min-width: 100px;
   }
-  
+
   .filters {
     flex-direction: column;
   }
-} 
+}

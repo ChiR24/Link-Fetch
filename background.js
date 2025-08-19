@@ -26,10 +26,7 @@ chrome.runtime.onInstalled.addListener(() => {
   // Show the number of stored links in the badge
   updateBadge();
   
-  // Set up command listeners for keyboard shortcuts
-  chrome.commands.onCommand.addListener((command) => {
-    // Remove side panel keyboard shortcut handler
-  });
+
 });
 
 // Handle context menu clicks
@@ -42,54 +39,46 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     blinkBadge();
   }
   else if (info.menuItemId === "fetchAllLinks") {
-    // Execute content script to get all links
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: getAllPageLinks
-    }, (results) => {
+    // Ask content script to get all links via messaging (avoids duplicate logic)
+    chrome.tabs.sendMessage(tab.id, { action: "getLinks" }, (response) => {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError.message);
         return;
       }
-      
-      if (results && results[0] && results[0].result) {
-        const links = results[0].result;
-        
+
+      const links = (response && response.links) ? response.links : [];
+
+      if (links.length > 0) {
         // Add all links to storage
         addLinks(links);
-        
+
         // Show visual feedback - blink the badge
         blinkBadge();
-        
+
         // Show notification with count
-        if (links.length > 0) {
-          chrome.notifications.create({
-            type: 'basic',
-            iconUrl: 'icons/icon128.png',
-            title: 'Link Fetch',
-            message: `Added ${links.length} links from the page`
-          });
-        }
+        chrome.notifications.create({
+          type: 'basic',
+          iconUrl: 'icons/icon128.png',
+          title: 'Link Fetch',
+          message: `Added ${links.length} links from the page`
+        });
       }
     });
   }
   else if (info.menuItemId === "fetchLinkInSelection") {
-    // Execute content script to extract links from selection
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      function: getLinksFromSelection
-    }, (results) => {
+    // Ask content script to extract links from selection via messaging
+    chrome.tabs.sendMessage(tab.id, { action: "getLinksFromSelection" }, (response) => {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError.message);
         return;
       }
-      
-      if (results && results[0] && results[0].result) {
-        const links = results[0].result;
-        
+
+      const links = (response && response.links) ? response.links : [];
+
+      if (links.length > 0) {
         // Add all links to storage
         addLinks(links);
-        
+
         // Show visual feedback - blink the badge
         blinkBadge();
       }
@@ -178,7 +167,7 @@ function blinkBadge() {
 
 // Listen for messages from popup or content scripts
 chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
+  function(request, _sender, sendResponse) {
     if (request.action === "fetchLinks") {
       // Send message to content script to get links
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
@@ -239,24 +228,36 @@ async function checkLinks(links) {
   // Process each batch sequentially
   for (const batch of batches) {
     // Process links in this batch in parallel
-    const batchResults = await Promise.all(
+    await Promise.all(
       batch.map(async (link) => {
         try {
           // Use fetch with a timeout to check if the link is valid
           const controller = new AbortController();
           const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
           
+          // Try HEAD first with proper host permissions; fall back to GET if needed
           const response = await fetch(link, {
-            method: 'HEAD', // Just request headers, not the full resource
-            mode: 'no-cors',
+            method: 'HEAD',
             cache: 'no-store',
+            redirect: 'follow',
             signal: controller.signal
-          });
-          
+          }).catch(() => null);
+
+          let ok = !!(response && response.ok);
+
+          if (!ok) {
+            const response2 = await fetch(link, {
+              method: 'GET',
+              cache: 'no-store',
+              redirect: 'follow',
+              signal: controller.signal
+            }).catch(() => null);
+            ok = !!(response2 && response2.ok);
+          }
+
           clearTimeout(timeoutId);
-          
-          // Success if status is in the 2xx range
-          results[link] = true;
+
+          results[link] = ok;
         } catch (error) {
           // If there's an error (network, CORS, timeout), consider the link broken
           results[link] = false;
@@ -268,75 +269,3 @@ async function checkLinks(links) {
   return results;
 }
 
-// Function to get all links on the page - injected into page context
-function getAllPageLinks() {
-  const linkElements = document.querySelectorAll('a');
-  const links = [];
-  const seenUrls = new Set(); // For tracking duplicates
-  
-  linkElements.forEach(link => {
-    const href = link.href;
-    if (href && href.startsWith('http') && !seenUrls.has(href)) {
-      seenUrls.add(href);
-      links.push(href);
-    }
-  });
-  
-  // Also look for links in text content using regex
-  try {
-    const bodyText = document.body.innerText;
-    const urlRegex = /(https?:\/\/[^\s\"\'\)\<\>]+)/g;
-    const matches = bodyText.match(urlRegex);
-    
-    if (matches) {
-      matches.forEach(url => {
-        // Clean up URL - remove trailing punctuation
-        let cleanUrl = url;
-        while (cleanUrl.endsWith('.') || cleanUrl.endsWith(',') || 
-               cleanUrl.endsWith(';') || cleanUrl.endsWith(')') || 
-               cleanUrl.endsWith('"') || cleanUrl.endsWith("'")) {
-          cleanUrl = cleanUrl.slice(0, -1);
-        }
-        
-        if (cleanUrl.startsWith('http') && !seenUrls.has(cleanUrl)) {
-          seenUrls.add(cleanUrl);
-          links.push(cleanUrl);
-        }
-      });
-    }
-  } catch (e) {
-    // Skip if error
-  }
-  
-  return links;
-}
-
-// Function to extract links from selected text - injected into page context
-function getLinksFromSelection() {
-  const selection = window.getSelection().toString();
-  const links = [];
-  const seenUrls = new Set(); // For tracking duplicates
-  
-  // Simple regex for http/https URLs
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const matches = selection.match(urlRegex);
-  
-  if (matches) {
-    matches.forEach(url => {
-      // Clean up URL - remove trailing punctuation commonly included when selecting text
-      let cleanUrl = url;
-      while (cleanUrl.endsWith('.') || cleanUrl.endsWith(',') || 
-             cleanUrl.endsWith(';') || cleanUrl.endsWith(')') || 
-             cleanUrl.endsWith('"') || cleanUrl.endsWith("'")) {
-        cleanUrl = cleanUrl.slice(0, -1);
-      }
-      
-      if (!seenUrls.has(cleanUrl)) {
-        seenUrls.add(cleanUrl);
-        links.push(cleanUrl);
-      }
-    });
-  }
-  
-  return links;
-} 

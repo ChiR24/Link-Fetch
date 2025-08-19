@@ -15,4 +15,11 @@ Thumbs.db
 .env
 
 # Ignore screenshots directory
-screenshots/ 
+screenshots/
+
+# Ignore packaging temp
+temp_packaging/
+
+# Ignore IDE/editor folders
+.vscode/
+.idea/

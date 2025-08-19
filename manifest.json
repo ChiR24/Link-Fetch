@@ -11,6 +11,9 @@
     "tabs",
     "notifications"
   ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_title": "Link Fetch - Extract and manage links",
@@ -46,4 +49,4 @@
     }
   },
   "author": "Link Fetch Developer"
-} 
+}

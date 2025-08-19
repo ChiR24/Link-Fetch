@@ -165,43 +165,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
       const activeTab = tabs[0];
-      chrome.scripting.executeScript({
-        target: { tabId: activeTab.id },
-        function: getAllLinks
-      }, (results) => {
+      chrome.tabs.sendMessage(activeTab.id, { action: "getLinks" }, (response) => {
         // Reset button state
         fetchButton.disabled = false;
         fetchButton.innerHTML = '<i class="fas fa-download"></i> Fetch Links';
-        
+
         if (chrome.runtime.lastError) {
           showStatus('Error: ' + chrome.runtime.lastError.message, 'error');
           return;
         }
-        
-        if (results && results[0] && results[0].result) {
-          const newLinks = results[0].result;
-          
-          // Merge with existing links, avoiding duplicates
-          const uniqueLinks = [...new Set([...links, ...newLinks])];
-          links = uniqueLinks;
-          
-          // Save links
-          chrome.storage.local.set({ 'links': links });
-          
-          // Display links
-          displayLinks(links);
-          updateStats(links);
-          
-          // Update badge
-          chrome.runtime.sendMessage({ action: "updateBadge" });
-          
-          // Show success message with count
-          const newCount = newLinks.length;
-          if (newCount > 0) {
-            showStatus(`Found ${newCount} new link${newCount !== 1 ? 's' : ''}`);
-          } else {
-            showStatus('No new links found');
-          }
+
+        const newLinks = (response && response.links) ? response.links : [];
+
+        // Merge with existing links, avoiding duplicates
+        const uniqueLinks = [...new Set([...links, ...newLinks])];
+        links = uniqueLinks;
+
+        // Save links
+        chrome.storage.local.set({ 'links': links });
+
+        // Display links
+        displayLinks(links);
+        updateStats(links);
+
+        // Update badge
+        chrome.runtime.sendMessage({ action: "updateBadge" });
+
+        // Show success message with count
+        const newCount = newLinks.length;
+        if (newCount > 0) {
+          showStatus(`Found ${newCount} new link${newCount !== 1 ? 's' : ''}`);
+        } else {
+          showStatus('No new links found');
         }
       });
     });
@@ -352,37 +347,39 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       // Display domain groups
+      const frag = document.createDocumentFragment();
       Object.keys(linksByDomain).sort().forEach(domain => {
         const domainLinks = linksByDomain[domain];
-        
+
         // Create domain header
         const domainGroup = document.createElement('div');
         domainGroup.className = 'domain-group';
         domainGroup.setAttribute('aria-label', `Domain group: ${domain} with ${domainLinks.length} links`);
-        
+
         // Add favicon
         const favicon = document.createElement('img');
         favicon.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=16`;
         favicon.className = 'favicon';
         favicon.alt = '';
         domainGroup.appendChild(favicon);
-        
+
         // Add domain text
         domainGroup.appendChild(document.createTextNode(' ' + domain + ' '));
-        
+
         // Add count badge
         const badge = document.createElement('span');
         badge.className = 'badge';
         badge.textContent = domainLinks.length;
         domainGroup.appendChild(badge);
-        
-        linksList.appendChild(domainGroup);
-        
+
+        frag.appendChild(domainGroup);
+
         // Add links for this domain
         domainLinks.forEach(link => {
-          addLinkItem(link);
+          frag.appendChild(addLinkItem(link));
         });
       });
+      linksList.appendChild(frag);
       
       return; // We've handled the display
     } else if (sortType === 'date') {
@@ -397,18 +394,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Display sorted links
+        const frag = document.createDocumentFragment();
         sortedLinks.forEach(link => {
-          addLinkItem(link);
+          frag.appendChild(addLinkItem(link));
         });
+        linksList.appendChild(frag);
       });
       
       return; // Async handling
     }
     
     // Default display (for default or alphabetical sort)
+    const frag = document.createDocumentFragment();
     sortedLinks.forEach(link => {
-      addLinkItem(link);
+      frag.appendChild(addLinkItem(link));
     });
+    linksList.appendChild(frag);
   }
 
   // Function to add a single link item to the list
@@ -519,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function() {
     actions.appendChild(deleteBtn);
     
     li.appendChild(actions);
-    linksList.appendChild(li);
+    return li;
   }
 
   // Show empty message
@@ -541,51 +542,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
   }
   
-  // Function that will be injected into the page to get links
-  function getAllLinks() {
-    const linkElements = document.querySelectorAll('a');
-    const links = [];
-    const seenUrls = new Set(); // For tracking duplicates
-    
-    linkElements.forEach(link => {
-      const href = link.href;
-      
-      // Skip if not a valid http/https link or already seen
-      if (!href || !href.startsWith('http') || seenUrls.has(href)) {
-        return;
-      }
-      
-      // Add to seen set and links array
-      seenUrls.add(href);
-      links.push(href);
-    });
-    
-    // Also look for links in text content using regex
-    try {
-      const bodyText = document.body.innerText;
-      const urlRegex = /(https?:\/\/[^\s\"\'\)\<\>]+)/g;
-      const matches = bodyText.match(urlRegex);
-      
-      if (matches) {
-        matches.forEach(url => {
-          // Clean up URL - remove trailing punctuation
-          let cleanUrl = url;
-          while (cleanUrl.endsWith('.') || cleanUrl.endsWith(',') || 
-                cleanUrl.endsWith(';') || cleanUrl.endsWith(')') || 
-                cleanUrl.endsWith('"') || cleanUrl.endsWith("'")) {
-            cleanUrl = cleanUrl.slice(0, -1);
-          }
-          
-          if (cleanUrl.startsWith('http') && !seenUrls.has(cleanUrl)) {
-            seenUrls.add(cleanUrl);
-            links.push(cleanUrl);
-          }
-        });
-      }
-    } catch (e) {
-      // Skip if error
-    }
-    
-    return links;
-  }
+
 }); 
